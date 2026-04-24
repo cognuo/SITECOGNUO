@@ -1,0 +1,7 @@
+---
+import NicheLayout from '../layouts/NicheLayout.astro';
+import { niches } from '../data/niches';
+
+const niche = niches.find((n) => n.slug === 'contabilidade')!;
+---
+<NicheLayout niche={niche} />

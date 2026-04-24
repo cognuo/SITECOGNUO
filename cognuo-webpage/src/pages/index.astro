@@ -1,0 +1,822 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { niches } from '../data/niches';
+
+const capabilities = [
+  'Automação com IA',
+  'Software sob medida',
+  'Agentes IA',
+  'Integrações',
+  'Sistemas internos',
+];
+
+const stats = [
+  { value: '8 sem', label: 'e seu processo já está rodando diferente' },
+  { value: '70%',   label: 'do tempo operacional que as empresas economizam' },
+  { value: '100%',  label: 'do código e dos dados pertencem a você' },
+  { value: '24h',   label: 'para responder qualquer dúvida ou ajuste' },
+];
+
+const problems = [
+  { title: 'Sua equipe refaz o mesmo trabalho todo dia',        cost: 'Horas que poderiam ir para o que importa', icon: 'repeat' },
+  { title: 'As informações ficam presas nas pessoas',           cost: 'Tudo depende de quem está disponível',     icon: 'scatter' },
+  { title: 'Quando a demanda cresce, o custo também',           cost: 'Não escala sem contratar mais',            icon: 'stack' },
+  { title: 'Cada sistema faz uma coisa, mas não se falam',      cost: 'Alguém sempre faz a ponte manualmente',   icon: 'broken' },
+  { title: 'Cliente espera. Equipe acumula. Ninguém dá conta',  cost: 'Experiência cai, cliente vai embora',     icon: 'clock' },
+  { title: 'Você decide sem ver os números em tempo real',      cost: 'Apaga incêndio em vez de evitar',         icon: 'chart' },
+];
+
+const solutions = [
+  {
+    title: 'Pare de fazer o que um sistema faz melhor',
+    desc: 'Identificamos as tarefas que consomem mais tempo da sua equipe e construímos o processo automatizado que as substitui. Sem precisar contratar ninguém.',
+    before: 'Pessoa fazendo tarefa repetitiva',
+    after:  'Processo rodando sozinho',
+    outcome: 'Equipe livre para o que importa',
+    icon: 'ai',
+  },
+  {
+    title: 'Um sistema feito para o seu negócio',
+    desc: 'Seu processo não precisa se adaptar a uma ferramenta genérica. Construímos exatamente o que sua operação precisa, do jeito que ela funciona.',
+    before: 'Gambiarras em cima de ferramentas',
+    after:  'Sistema que encaixa no seu processo',
+    outcome: 'Sem adaptações forçadas',
+    icon: 'blueprint',
+  },
+  {
+    title: 'Atendimento que não para quando sua equipe para',
+    desc: 'Seus clientes recebem resposta imediata a qualquer hora. Quando realmente precisam de uma pessoa, o sistema encaminha. Sem fila, sem espera.',
+    before: 'Fila acumulando, cliente esperando',
+    after:  'Resposta na hora, todo dia',
+    outcome: 'Cliente satisfeito sem custo extra',
+    icon: 'agent',
+  },
+  {
+    title: 'Chega de Excel como sistema de gestão',
+    desc: 'Construímos a ferramenta interna que sua equipe vai querer usar. Tudo no lugar certo, sem precisar perguntar para ninguém onde está a informação.',
+    before: 'Excel, WhatsApp e e-mail como ERP',
+    after:  'Uma tela, tudo que precisa',
+    outcome: 'Informação acessível para todos',
+    icon: 'dashboard',
+  },
+  {
+    title: 'Seus sistemas finalmente conversando',
+    desc: 'Não precisamos substituir o que já funciona. Conectamos o que você já usa para que a informação flua sem ninguém precisar copiar de um lugar para o outro.',
+    before: 'Alguém sempre fazendo a ponte',
+    after:  'Sistemas sincronizados, dados limpos',
+    outcome: 'Sem retrabalho, sem inconsistência',
+    icon: 'nodes',
+  },
+];
+
+const steps = [
+  { num: '01', title: 'A gente ouve primeiro',   duration: '45 min',     desc: 'Entendemos seu negócio, seus gargalos e o que está custando mais caro, antes de falar em solução.' },
+  { num: '02', title: 'Mostramos o plano',        duration: '3 a 5 dias', desc: 'Você recebe uma proposta clara: o que vamos construir, quanto vai custar e quando vai estar pronto.' },
+  { num: '03', title: 'Construímos junto com você', duration: '4 a 12 sem', desc: 'A cada 2 semanas você vê o que foi construído e pode dar retorno. Sem surpresas no final.' },
+  { num: '04', title: 'Vai ao ar',               duration: '1 semana',   desc: 'Seu processo novo funcionando. Sua equipe operando diferente desde o primeiro dia.' },
+  { num: '05', title: 'Cresce com você',          duration: 'Contínuo',   desc: 'À medida que seu negócio muda, o sistema evolui. Estamos aqui para o longo prazo.' },
+];
+
+const differentials = [
+  { title: 'Feito para você, não para todo mundo',  them: 'Ferramenta genérica que você dobra para caber', us: 'Sistema construído para o seu processo exato' },
+  { title: 'Você vê resultado antes de terminar',   them: 'Entrega só no final, com surpresas',            us: 'Algo funcionando a cada 2 semanas' },
+  { title: 'Não substituímos o que já funciona',    them: 'Joga fora e começa do zero',                    us: 'Conectamos o que você já tem' },
+  { title: 'IA onde resolve de verdade',            them: 'IA como item no pitch',                         us: 'Aplicada só onde gera resultado real' },
+  { title: 'O sistema é seu, para sempre',          them: 'Preso a uma plataforma que pode te cobrar mais', us: 'Código, dados e servidor pertencem a você' },
+  { title: 'Cresce sem precisar trocar tudo',       them: 'Funciona agora, quebra quando escala',          us: 'Pensado para aguentar o crescimento' },
+];
+
+const caseMetrics = [
+  { label: 'Esforço operacional',    value: '-70%',        bar: 70,  highlight: true },
+  { label: 'Tempo de resposta',      value: 'Instantâneo', bar: 95 },
+  { label: 'Escalada para humano',   value: '18%',         bar: 18 },
+  { label: 'Até produção',           value: '8 semanas',   bar: 40 },
+];
+
+const faqs = [
+  {
+    q: 'O que acontece na conversa gratuita?',
+    a: 'A gente passa 45 minutos entendendo o seu negócio: como você opera hoje, onde está perdendo tempo ou dinheiro e o que poderia ser diferente. No final, você já sai com clareza sobre o que dá para resolver, mesmo que não feche nada com a gente.',
+  },
+  {
+    q: 'Quanto custa?',
+    a: 'Depende do que precisa ser feito. Depois da conversa inicial, enviamos uma proposta com valor e prazo definidos. Sem surpresa no meio do caminho. Projetos menores e automações pontuais costumam ter um custo de entrada bem acessível.',
+  },
+  {
+    q: 'Quanto tempo até eu ver resultado?',
+    a: 'Para automações e projetos menores, as primeiras entregas funcionando em 4 a 8 semanas. Para sistemas maiores, você vê algo real a cada 2 semanas desde o início. Não espera o projeto inteiro terminar para ver o que foi feito.',
+  },
+  {
+    q: 'Vocês conseguem conectar com o que já usamos?',
+    a: 'Sim. Trabalhamos para não substituir o que já funciona. Conectamos com ERPs, CRMs, plataformas de atendimento e qualquer sistema que permita integração. Na maioria dos casos você não precisa trocar nada do que já tem.',
+  },
+  {
+    q: 'A IA que vocês usam realmente funciona?',
+    a: 'Funciona onde faz sentido. Não colocamos IA em tudo só para parecer moderno. Aplicamos onde ela resolve um problema real: responder clientes, classificar informações, extrair dados de documentos. Se não agregar resultado, não usamos.',
+  },
+  {
+    q: 'O sistema fica sendo nosso ou de vocês?',
+    a: 'Seu. Tudo que construímos (o código, os dados, o servidor) pertence à sua empresa. Você pode continuar com a gente, levar para outro time ou tocar internamente. Sem nenhuma dependência.',
+  },
+  {
+    q: 'Dá para começar pequeno e crescer depois?',
+    a: 'Sempre. A maioria dos projetos começa resolvendo um problema específico e cresce a partir daí. Construímos pensando no longo prazo, mas entregando valor desde a primeira semana.',
+  },
+  {
+    q: 'E depois que o projeto termina?',
+    a: 'Oferecemos suporte e evolução contínua. Seu negócio muda, o sistema muda junto. Muitos clientes trabalham com a gente por anos, não só para um projeto.',
+  },
+];
+---
+
+<Layout
+  title="Cognuo | Software sob medida e automações com IA"
+  description="Desenvolvemos sistemas sob medida, automações inteligentes e integrações com IA que eliminam processos manuais e reduzem custos operacionais."
+>
+  <Navbar />
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+  <section class="hero-root relative min-h-[90vh] lg:min-h-[820px] overflow-hidden flex flex-col" style="background:#0C0B10;">
+    <div class="absolute inset-0 hero-grid-cols" aria-hidden="true"></div>
+    <div class="absolute inset-0 hero-grid-dots opacity-60" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+    <div class="hero-spotlight" aria-hidden="true"></div>
+    <div class="hero-accent-line" aria-hidden="true"></div>
+
+    <div class="relative z-10 flex-1 flex items-center justify-center px-6 py-28 lg:py-24">
+      <div class="grid lg:grid-cols-[1fr_1.15fr] gap-14 items-center max-w-6xl mx-auto w-full">
+        <div class="text-center lg:text-left">
+
+          <div class="anim-hero anim-d1 inline-flex items-center gap-2.5 mb-10">
+            <span class="hidden lg:inline-block w-6 h-px bg-off-white/35" aria-hidden="true"></span>
+            <span class="text-[10.5px] font-medium tracking-[0.2em] uppercase text-off-white/55">
+              Para empresas que cresceram além da planilha
+            </span>
+          </div>
+
+          <h1 class="anim-hero anim-d2 text-[clamp(2rem,4.2vw,3.4rem)] font-bold text-off-white leading-[1.1] tracking-[-0.02em] mb-6 max-w-[22ch]">
+            Sua operação merece funcionar sem depender de você.
+          </h1>
+
+          <p class="anim-hero anim-d3 text-[1.02rem] sm:text-[1.08rem] text-off-white/70 max-w-[540px] lg:max-w-[500px] mx-auto lg:mx-0 leading-[1.7] mb-10">
+            Construímos os sistemas que eliminam o trabalho repetitivo,
+            conectam o que está desconectado e deixam sua equipe
+            focada no que realmente faz a empresa crescer.
+          </p>
+
+          <div class="anim-hero anim-d4 flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
+            <a href="/contato" class="hero-cta-primary">
+              <span>Agendar diagnóstico gratuito</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#processo" class="hero-cta-secondary">Ver como trabalhamos</a>
+          </div>
+
+          <div class="anim-hero anim-d4 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.15em] text-off-white/65 font-medium">
+            <span>45 minutos</span>
+            <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+            <span>Sem compromisso</span>
+            <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+            <span>Resposta em 24h</span>
+          </div>
+        </div>
+
+        <!-- Hero figure: system / agent diagram -->
+        <div class="anim-hero anim-d3 hidden lg:block relative">
+          <div class="hero-figure">
+            <div class="hf-core">
+              <div class="hf-core-label">Sistema sob medida</div>
+              <div class="hf-core-sub">IA + Integrações + Dados</div>
+              <div class="hf-pulse" aria-hidden="true"></div>
+            </div>
+
+            <div class="hf-node hf-node-a">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+              <span>CRM</span>
+            </div>
+            <div class="hf-node hf-node-b">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>
+              <span>ERP</span>
+            </div>
+            <div class="hf-node hf-node-c">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <span>Atendimento</span>
+            </div>
+            <div class="hf-node hf-node-d">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <span>APIs</span>
+            </div>
+            <div class="hf-node hf-node-e">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+              <span>Dashboard</span>
+            </div>
+
+            <svg class="hf-wires" viewBox="0 0 400 400" aria-hidden="true">
+              <defs>
+                <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#0035B0" stop-opacity="0"/>
+                  <stop offset="0.5" stop-color="#3B6CE0" stop-opacity="0.55"/>
+                  <stop offset="1" stop-color="#0035B0" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M200 200 L  80  100" stroke="url(#wg)" stroke-width="1" fill="none"/>
+              <path d="M200 200 L 320  100" stroke="url(#wg)" stroke-width="1" fill="none"/>
+              <path d="M200 200 L  80  300" stroke="url(#wg)" stroke-width="1" fill="none"/>
+              <path d="M200 200 L 320  300" stroke="url(#wg)" stroke-width="1" fill="none"/>
+              <path d="M200 200 L 200  40"  stroke="url(#wg)" stroke-width="1" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative z-10 pb-6 text-center">
+      <a href="#sobre" class="inline-flex flex-col items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-off-white/50 hover:text-off-white/80 transition-colors">
+        <span>Role</span>
+        <span class="inline-block hero-scroll-chev" aria-hidden="true">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10m0 0L1.5 6.5M6 11l4.5-4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ STATS STRIP ══════════════════════════════════════════════════ -->
+  <section aria-label="Números" class="bg-secondary border-t border-off-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
+        {stats.map((s, i) => (
+          <div class="relative" data-animate data-animate-delay={String(Math.min(i, 3))}>
+            <p class="text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold text-off-white leading-none tracking-tight mb-2">
+              {s.value}
+            </p>
+            <p class="text-[11px] uppercase tracking-[0.14em] text-off-white/55 leading-relaxed">
+              {s.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT WE DO (strip) ═══════════════════════════════════════════ -->
+  <section aria-label="O que fazemos" class="bg-secondary border-t border-off-white/10 py-7">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+        <span class="text-[10px] font-semibold uppercase tracking-[0.22em] text-off-white/60">
+          O que fazemos
+        </span>
+        <span class="w-px h-3 bg-off-white/22 hidden sm:inline-block" aria-hidden="true"></span>
+        {capabilities.map((cap, i) => (
+          <>
+            <span class="text-[13px] font-medium text-off-white/85">{cap}</span>
+            {i < capabilities.length - 1 && (
+              <span class="text-off-white/35 select-none" aria-hidden="true">·</span>
+            )}
+          </>
+        ))}
+        <span class="w-px h-3 bg-off-white/22 hidden lg:inline-block" aria-hidden="true"></span>
+        <a href="#solucoes" class="hidden lg:inline-flex items-center gap-1.5 text-[12px] font-medium text-off-white/75 hover:text-off-white transition-colors group">
+          <span>Ver em detalhe</span>
+          <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ AUTHORITY + FRAGMENTED → UNIFIED FIGURE ═══════════════════ -->
+  <section id="sobre" class="bg-off-white py-28 lg:py-36 border-b border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1fr] gap-16 items-center">
+      <div data-animate>
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">01 / Posicionamento</span>
+          <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+        </div>
+        <p class="text-[clamp(1.6rem,3.1vw,2.6rem)] font-bold text-secondary leading-[1.18] tracking-tight">
+          Você não tem um problema de tecnologia.<br />
+          Tem um processo que cresceu além do <span class="underline decoration-primary decoration-[3px] underline-offset-[6px]">improviso</span>.
+        </p>
+        <p class="mt-6 text-[1.02rem] text-secondary/65 max-w-xl leading-relaxed">
+          Em algum momento, toda empresa que cresce chega no limite do que dá
+          para fazer no Excel, no WhatsApp e nos acordos verbais. É nesse ponto
+          que a gente entra para construir o sistema que vai sustentar o
+          próximo nível do seu negócio.
+        </p>
+        <a href="/contato" class="inline-flex items-center gap-2 mt-10 text-sm font-medium text-primary group">
+          <span class="border-b border-primary/40 pb-px group-hover:border-primary transition-colors">Solicitar diagnóstico gratuito</span>
+          <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <!-- Before/After figure -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" data-animate data-animate-delay="2">
+        <div class="pos-card pos-before">
+          <p class="pos-label">Antes</p>
+          <div class="pos-chaos">
+            <span class="pos-chip" style="top:14%; left:10%;">Planilha</span>
+            <span class="pos-chip" style="top:28%; right:8%;">ERP</span>
+            <span class="pos-chip" style="top:48%; left:22%;">CRM</span>
+            <span class="pos-chip" style="top:64%; right:18%;">WhatsApp</span>
+            <span class="pos-chip" style="top:80%; left:8%;">E-mail</span>
+            <span class="pos-chip" style="top:80%; right:10%;">PDF</span>
+            <svg class="pos-lines" viewBox="0 0 200 200" aria-hidden="true">
+              <path d="M30 40 L 160 60 L 60 110 L 170 130 L 50 170 L 150 180" stroke="currentColor" stroke-width="0.7" fill="none" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <p class="pos-caption">Ilhas que não conversam</p>
+        </div>
+
+        <div class="pos-card pos-after">
+          <p class="pos-label">Depois</p>
+          <div class="pos-unified">
+            <div class="pos-hub">Sistema único</div>
+            <span class="pos-sat pos-sat-1">Dados</span>
+            <span class="pos-sat pos-sat-2">IA</span>
+            <span class="pos-sat pos-sat-3">APIs</span>
+            <span class="pos-sat pos-sat-4">UI</span>
+            <svg class="pos-rings" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.25"/>
+              <circle cx="100" cy="100" r="86" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.15"/>
+            </svg>
+          </div>
+          <p class="pos-caption">Uma fonte da verdade</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEMS ═══════════════════════════════════════════════════ -->
+  <section class="bg-off-white py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">02 / Problemas</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3 max-w-xl" data-animate>
+        Sua operação está no limite quando...
+      </h2>
+      <p class="text-secondary/65 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Cada um desses sinais tem um custo real: em horas, em dinheiro e no quanto sua equipe aguenta.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {problems.map((problem, i) => (
+          <div class="problem-card group" data-animate data-animate-delay={String(Math.min(i, 3))}>
+            <div class="problem-icon" aria-hidden="true">
+              {problem.icon === 'repeat' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 01-4 4H3"/></svg>
+              )}
+              {problem.icon === 'scatter' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="1.5"/><circle cx="18" cy="8" r="1.5"/><circle cx="7" cy="16" r="1.5"/><circle cx="17" cy="18" r="1.5"/><circle cx="12" cy="11" r="1.5"/></svg>
+              )}
+              {problem.icon === 'stack' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              )}
+              {problem.icon === 'broken' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007 0l2-2"/><path d="M14 11a5 5 0 00-7 0l-2 2"/><path d="M8 8l-2 2"/><path d="M16 16l2-2"/></svg>
+              )}
+              {problem.icon === 'clock' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              )}
+              {problem.icon === 'chart' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+              )}
+            </div>
+            <p class="text-[0.97rem] font-semibold text-secondary mb-1.5 leading-snug">{problem.title}</p>
+            <p class="text-[12px] uppercase tracking-[0.12em] text-primary/85 font-medium">{problem.cost}</p>
+          </div>
+        ))}
+      </div>
+
+      <a href="#solucoes" class="inline-flex items-center gap-2 mt-14 text-sm font-medium text-primary group" data-animate>
+        <span class="border-b border-primary/40 pb-px group-hover:border-primary transition-colors">Ver como resolvemos</span>
+        <span class="transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ SOLUTIONS ══════════════════════════════════════════════════ -->
+  <section id="solucoes" class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">03 / Soluções</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3" data-animate>
+        O que a gente resolve
+      </h2>
+      <p class="text-secondary/65 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Cada projeto começa de um problema real da sua operação. Termina com algo funcionando, não em apresentação.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {solutions.map((s, i) => (
+          <article
+            class="sol-card group"
+            data-animate
+            data-animate-delay={String(Math.min(i, 3))}
+          >
+            <div class="sol-icon" aria-hidden="true">
+              {s.icon === 'ai' && (
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="16" height="16" rx="3"/><path d="M12 14v4M16 12v8M20 14v4"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4"/></svg>
+              )}
+              {s.icon === 'blueprint' && (
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="6" width="22" height="20" rx="2"/><path d="M5 12h22M10 6v20"/><circle cx="18" cy="18" r="2"/><path d="M18 16v-2M18 22v-2M16 18h-2M22 18h-2"/></svg>
+              )}
+              {s.icon === 'agent' && (
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="20" height="14" rx="3"/><circle cx="12" cy="16" r="1.2"/><circle cx="20" cy="16" r="1.2"/><path d="M16 4v5M11 23v3M21 23v3"/></svg>
+              )}
+              {s.icon === 'dashboard' && (
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="24" height="18" rx="2"/><path d="M4 10h24"/><path d="M9 16h5M18 16h5M9 19h10"/></svg>
+              )}
+              {s.icon === 'nodes' && (
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2.5"/><circle cx="25" cy="8" r="2.5"/><circle cx="16" cy="24" r="2.5"/><circle cx="16" cy="15" r="2.5"/><path d="M9 9l5 5M23 9l-5 5M16 17v5"/></svg>
+              )}
+            </div>
+
+            <h3 class="text-[1.05rem] font-semibold text-secondary mb-3 group-hover:text-primary transition-colors">
+              {s.title}
+            </h3>
+            <p class="text-secondary/65 text-[0.93rem] leading-relaxed mb-6">{s.desc}</p>
+
+            <div class="sol-flow">
+              <span class="sol-before">{s.before}</span>
+              <span class="sol-arrow" aria-hidden="true">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h11m0 0L8.5 1.5M12 5L8.5 8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="sol-after">{s.after}</span>
+            </div>
+
+            <div class="sol-tag">{s.outcome}</div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-14 flex flex-wrap items-center gap-5" data-animate>
+        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-colors duration-200">
+          <span>Discutir meu projeto</span>
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <span class="text-[11px] uppercase tracking-[0.15em] text-secondary/50 font-medium">
+          Resposta em 24h · Sem compromisso
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW WE WORK ════════════════════════════════════════════════ -->
+  <section id="processo" class="bg-secondary py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] uppercase" style="color: #A3BAEA;">04 / Processo</span>
+        <span class="h-px flex-1 bg-off-white/18 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-off-white leading-tight tracking-tight mb-3" data-animate>
+        Como trabalhamos
+      </h2>
+      <p class="text-off-white/70 max-w-xl mb-16 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Sem meses de planejamento antes de ver qualquer coisa. Você acompanha, dá retorno e vê resultado desde as primeiras semanas.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0 relative">
+        <div
+          class="hidden lg:block absolute top-[14px] left-[8%] right-[8%] h-px"
+          style="background: linear-gradient(90deg, transparent, rgba(250,250,250,0.18) 15%, rgba(250,250,250,0.18) 85%, transparent);"
+          aria-hidden="true"
+        ></div>
+
+        {steps.map((step, i) => (
+          <div
+            class="flex flex-col sm:border-l sm:border-off-white/15 sm:pl-7 lg:border-none lg:pl-0 lg:pr-6 pb-10 lg:pb-0"
+            data-animate
+            data-animate-delay={String(Math.min(i, 3))}
+          >
+            <span class="relative z-10 inline-flex items-center justify-center w-7 h-7 border border-off-white/30 text-[10px] font-mono text-off-white/80 mb-5 bg-secondary">
+              {step.num}
+            </span>
+            <h3 class="font-semibold text-off-white text-[0.95rem] mb-2">{step.title}</h3>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.14em] mb-3" style="color: #A3BAEA;">{step.duration}</p>
+            <p class="text-[0.88rem] text-off-white/65 leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Sprint timeline visual -->
+      <div class="mt-20 timeline-figure" data-animate>
+        <div class="tl-bar">
+          <div class="tl-fill"></div>
+          <span class="tl-marker" style="left:0%">Sem 0</span>
+          <span class="tl-marker" style="left:22%">Sprint 1</span>
+          <span class="tl-marker" style="left:44%">Sprint 2</span>
+          <span class="tl-marker" style="left:66%">Sprint 3</span>
+          <span class="tl-marker tl-marker-end" style="left:88%">Produção</span>
+        </div>
+        <div class="tl-legend">
+          <span>Entrega funcional a cada 2 semanas</span>
+          <span>·</span>
+          <span>Demo ao vivo · Sem surpresas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DIFFERENTIALS (THEM vs US) ═════════════════════════════════ -->
+  <section class="bg-off-white py-24 lg:py-32 border-b border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">05 / Diferenciais</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3" data-animate>
+        Por que as empresas escolhem trabalhar com a gente
+      </h2>
+      <p class="text-secondary/65 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Não somos a opção mais barata. Mas somos a que resolve de verdade.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 max-w-5xl">
+        {differentials.map((d, i) => (
+          <div class="diff-row" data-animate data-animate-delay={String(Math.min(i, 3))}>
+            <p class="diff-title">{d.title}</p>
+            <div class="diff-compare">
+              <div class="diff-them">
+                <span class="diff-pill">O mercado</span>
+                <span class="diff-text">{d.them}</span>
+              </div>
+              <div class="diff-us">
+                <span class="diff-pill diff-pill-us">Cognuo</span>
+                <span class="diff-text diff-text-us">{d.us}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SETORES ══════════════════════════════════════════════════ -->
+  <section class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">06 / Setores</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3" data-animate>
+        Construímos para quem já conhecemos bem
+      </h2>
+      <p class="text-secondary/65 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Cada setor tem um jeito próprio de travar. Quanto mais fundo entendemos o problema, mais rápido resolvemos.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {niches.map((niche, i) => (
+          <a
+            href={`/${niche.slug}`}
+            class="group block p-6 bg-secondary/[0.03] border border-secondary/10 hover:border-primary/40 hover:bg-primary/[0.03] transition-all duration-250"
+            data-animate
+            data-animate-delay={String(Math.min(i, 3))}
+          >
+            <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70 mb-3">{niche.eyebrow}</p>
+            <h3 class="text-[1.05rem] font-semibold text-secondary group-hover:text-primary transition-colors leading-snug mb-2">
+              {niche.shortName}
+            </h3>
+            <p class="text-[0.88rem] text-secondary/60 leading-relaxed mb-4">{niche.tagline}</p>
+            <span class="inline-flex items-center gap-1.5 text-[12px] font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>Ver soluções</span>
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <p class="mt-10 text-[12px] text-secondary/50 leading-relaxed" data-animate>
+        Não vê o seu setor? <a href="/contato" class="text-primary border-b border-primary/40 hover:border-primary transition-colors">Fale com a gente</a>. Trabalhamos com qualquer empresa que queira resolver um problema operacional real.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ CASE ═══════════════════════════════════════════════════════ -->
+  <section id="cases" class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-16" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">07 / Case</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-16 lg:gap-24 items-start">
+        <div data-animate data-animate-delay="1">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary/45 mb-4">
+            Setor · Comercial / E-commerce
+          </p>
+          <h2 class="text-[clamp(1.7rem,2.8vw,2.75rem)] font-bold text-secondary leading-[1.12] tracking-tight mb-10">
+            Um time que não dava mais conta. <span class="text-primary">Resolvido em 8 semanas.</span>
+          </h2>
+
+          <div class="space-y-7">
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O problema</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">
+                A equipe de atendimento processava centenas de interações por dia.
+                Cada pessoa fazia manualmente o que poderia ser automático.
+                O custo crescia junto com a demanda. O time estava no limite.
+              </p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O que fizemos</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">
+                Construímos um sistema que responde, classifica e resolve
+                automaticamente. Quando o cliente realmente precisa de uma pessoa,
+                o sistema encaminha. Sem fila, sem espera.
+              </p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O resultado</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">
+                82% dos atendimentos resolvidos sem nenhuma intervenção humana.
+                Resposta imediata a qualquer hora. E a equipe finalmente
+                focada nos casos que precisam de atenção de verdade.
+              </p>
+            </div>
+          </div>
+
+          <a href="/contato" class="inline-flex items-center gap-2 mt-12 text-sm font-medium text-primary group">
+            <span class="border-b border-primary/40 pb-px group-hover:border-primary transition-colors">Discutir um projeto similar</span>
+            <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="lg:border-l lg:border-secondary/10 lg:pl-16" data-animate data-animate-delay="2">
+          <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-6">Impacto medido</p>
+
+          <div class="case-bars">
+            {caseMetrics.map((m) => (
+              <div class={`case-bar ${m.highlight ? 'case-bar-hl' : ''}`}>
+                <div class="case-bar-top">
+                  <span class="case-bar-label">{m.label}</span>
+                  <span class="case-bar-value">{m.value}</span>
+                </div>
+                <div class="case-bar-track" aria-hidden="true">
+                  <div class="case-bar-fill" style={`width:${m.bar}%`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-secondary/10 flex items-center gap-4">
+            <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0035B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-[0.88rem] text-secondary/70 leading-snug">
+              Em produção desde a semana 8, evoluindo com o uso real.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MID CTA ════════════════════════════════════════════════════ -->
+  <section class="bg-secondary py-24 lg:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 hero-grid-dots opacity-40" aria-hidden="true"></div>
+    <div
+      class="absolute -right-20 -bottom-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+      style="background: radial-gradient(circle, rgba(0,53,176,0.24) 0%, transparent 65%); filter: blur(60px);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-[1.1fr_1fr] gap-16 items-center">
+      <div data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] uppercase mb-6 inline-block" style="color: #A3BAEA;">Próximo passo</span>
+        <h2 class="text-[clamp(1.95rem,3.6vw,3.1rem)] font-bold text-off-white leading-[1.1] tracking-tight mb-5">
+          Vamos entender o seu problema antes de falar em solução
+        </h2>
+        <p class="text-off-white/75 text-[1.02rem] mb-10 leading-relaxed max-w-lg">
+          Em 45 minutos, você conta como sua operação funciona hoje e onde
+          está travando. A gente ouve, faz as perguntas certas e diz
+          honestamente o que dá para resolver e o que não dá.
+          Sem compromisso, sem pressão.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <a href="/contato" class="hero-cta-primary">
+            <span>Agendar diagnóstico</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="mailto:contato@cognuo.com.br" class="hero-cta-secondary">Enviar e-mail</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.15em] text-off-white/60 font-medium">
+          <span>Gratuito</span>
+          <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+          <span>Sem compromisso</span>
+          <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+          <span>Resposta em 24h</span>
+        </div>
+      </div>
+
+      <!-- Meeting card figure -->
+      <div class="hidden lg:block" data-animate data-animate-delay="2">
+        <div class="meeting-card">
+          <div class="mc-header">
+            <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
+            <span class="mc-title">Diagnóstico · 45 min</span>
+          </div>
+          <div class="mc-body">
+            <div class="mc-row"><span class="mc-check" aria-hidden="true">✓</span><span>A gente entende como sua operação funciona hoje</span></div>
+            <div class="mc-row"><span class="mc-check" aria-hidden="true">✓</span><span>Identificamos onde está custando mais caro</span></div>
+            <div class="mc-row"><span class="mc-check" aria-hidden="true">✓</span><span>Mostramos o que dá para resolver e como</span></div>
+            <div class="mc-row"><span class="mc-check" aria-hidden="true">✓</span><span>Estimativa de prazo e investimento</span></div>
+            <div class="mc-row mc-row-emph">
+              <span class="mc-check" aria-hidden="true">→</span>
+              <span>Você sai com clareza, mesmo que não feche nada.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ════════════════════════════════════════════════════════ -->
+  <section class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-3xl mx-auto px-6 lg:px-10 text-center">
+      <div class="flex items-center justify-center gap-3 mb-6" data-animate>
+        <span class="h-px w-10 bg-secondary/12" aria-hidden="true"></span>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">08 / Perguntas</span>
+        <span class="h-px w-10 bg-secondary/12" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3" data-animate>
+        Perguntas frequentes
+      </h2>
+      <p class="text-secondary/65 mx-auto max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Não encontrou o que procurava?
+        <a href="/contato" class="text-primary border-b border-primary/40 hover:border-primary transition-colors">Fale conosco diretamente</a>.
+      </p>
+
+      <div class="text-left" data-animate data-animate-delay="2">
+        {faqs.map((faq) => (
+          <details class="group border-b border-secondary/10">
+            <summary class="flex items-start justify-between gap-6 py-6 text-secondary text-[0.98rem] font-medium cursor-pointer hover:text-primary transition-colors duration-200">
+              <span>{faq.q}</span>
+              <span class="faq-plus flex-shrink-0 mt-0.5 text-secondary/40 text-lg leading-none select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-7 text-secondary/70 text-[0.93rem] leading-[1.7]">
+              {faq.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    })} />
+  </section>
+
+  <!-- ═══ FINAL CTA ══════════════════════════════════════════════════ -->
+  <section class="bg-off-white py-28 lg:py-40 border-t border-secondary/8">
+    <div class="max-w-3xl mx-auto px-6 lg:px-10 text-center" data-animate>
+      <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase mb-8 inline-block">
+        09 / Vamos começar
+      </span>
+      <h2 class="text-[clamp(2.1rem,4.5vw,4rem)] font-extrabold text-secondary leading-[1.05] tracking-[-0.03em] mb-6 max-w-[20ch] mx-auto">
+        Pronto para parar de apagar incêndio?
+      </h2>
+      <p class="text-secondary/65 text-[1.05rem] mb-10 max-w-md mx-auto leading-relaxed">
+        Comece com uma conversa gratuita. Em 45 minutos você sai sabendo exatamente o que pode mudar na sua operação.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <a
+          href="/contato"
+          class="inline-flex items-center gap-2 px-7 py-4 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-all duration-300"
+          style="box-shadow: 0 20px 42px -12px rgba(0,53,176,0.4);"
+        >
+          <span>Agendar diagnóstico gratuito</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <p class="text-[11px] uppercase tracking-[0.15em] text-secondary/55 font-medium">
+        45 minutos &middot; Sem compromisso &middot; Resposta em 24h
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

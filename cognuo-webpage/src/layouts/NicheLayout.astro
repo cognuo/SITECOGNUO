@@ -1,0 +1,258 @@
+---
+import Layout from './Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import type { Niche } from '../data/niches';
+
+interface Props {
+  niche: Niche;
+}
+
+const { niche } = Astro.props;
+const canonical = `https://cognuo.com.br/${niche.slug}`;
+---
+
+<Layout
+  title={niche.seoTitle}
+  description={niche.seoDescription}
+  canonical={canonical}
+>
+  <Navbar />
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+  <section class="hero-root relative min-h-[72vh] overflow-hidden flex flex-col" style="background:#0C0B10;">
+    <div class="absolute inset-0 hero-grid-cols" aria-hidden="true"></div>
+    <div class="absolute inset-0 hero-grid-dots opacity-60" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+    <div class="hero-accent-line" aria-hidden="true"></div>
+
+    <div class="relative z-10 flex-1 flex items-center justify-center px-6 py-28 lg:py-24">
+      <div class="max-w-4xl mx-auto w-full text-center">
+
+        <div class="anim-hero anim-d1 inline-flex items-center gap-2.5 mb-10">
+          <span class="w-6 h-px bg-off-white/35" aria-hidden="true"></span>
+          <span class="text-[10.5px] font-medium tracking-[0.2em] uppercase text-off-white/55">
+            {niche.eyebrow}
+          </span>
+          <span class="w-6 h-px bg-off-white/35" aria-hidden="true"></span>
+        </div>
+
+        <h1 class="anim-hero anim-d2 text-[clamp(2rem,4.5vw,3.6rem)] font-bold text-off-white leading-[1.1] tracking-[-0.02em] mb-6 max-w-[24ch] mx-auto">
+          {niche.heroHeadline}
+        </h1>
+
+        <p class="anim-hero anim-d3 text-[1.02rem] sm:text-[1.08rem] text-off-white/70 max-w-[560px] mx-auto leading-[1.7] mb-10">
+          {niche.heroSub}
+        </p>
+
+        <div class="anim-hero anim-d4 flex flex-wrap items-center justify-center gap-3 mb-8">
+          <a href="/contato" class="hero-cta-primary">
+            <span>Agendar diagnóstico gratuito</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#problemas" class="hero-cta-secondary">Ver os problemas que resolvemos</a>
+        </div>
+
+        <div class="anim-hero anim-d4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.15em] text-off-white/65 font-medium">
+          <span>45 minutos</span>
+          <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+          <span>Sem compromisso</span>
+          <span class="w-px h-3 bg-off-white/28" aria-hidden="true"></span>
+          <span>Resposta em 24h</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEMS ═══════════════════════════════════════════════════ -->
+  <section id="problemas" class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">01 / Problemas</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-secondary leading-tight tracking-tight mb-3 max-w-xl" data-animate>
+        Sua operação está no limite quando...
+      </h2>
+      <p class="text-secondary/65 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Cada um desses sinais tem um custo real. Se você reconhece dois ou mais, está na hora de conversar.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {niche.problems.map((p, i) => (
+          <div class="problem-card" data-animate data-animate-delay={String(Math.min(i, 3))}>
+            <div class="problem-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
+            <p class="text-[0.97rem] font-semibold text-secondary mb-1.5 leading-snug">{p.title}</p>
+            <p class="text-[12px] uppercase tracking-[0.12em] text-primary/85 font-medium">{p.cost}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOLUTIONS ══════════════════════════════════════════════════ -->
+  <section id="solucoes" class="bg-secondary py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-6" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] uppercase" style="color: #A3BAEA;">02 / Soluções</span>
+        <span class="h-px flex-1 bg-off-white/18 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+      <h2 class="text-[clamp(1.65rem,2.6vw,2.25rem)] font-bold text-off-white leading-tight tracking-tight mb-3" data-animate>
+        O que construímos para {niche.shortName}
+      </h2>
+      <p class="text-off-white/70 max-w-xl mb-14 text-[0.98rem] leading-relaxed" data-animate data-animate-delay="1">
+        Não vendemos módulos genéricos. Cada projeto começa de um problema real da sua operação.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {niche.solutions.map((s, i) => (
+          <div
+            class="bg-off-white/5 border border-off-white/10 p-6 flex flex-col"
+            data-animate
+            data-animate-delay={String(Math.min(i, 3))}
+          >
+            <span class="text-[10px] font-semibold uppercase tracking-[0.18em] mb-4 block" style="color: #A3BAEA;">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="text-[1.05rem] font-semibold text-off-white mb-3 leading-snug">{s.title}</h3>
+            <p class="text-off-white/65 text-[0.9rem] leading-relaxed flex-1">{s.desc}</p>
+            <div class="mt-5 pt-4 border-t border-off-white/10">
+              <span class="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A3BAEA]">{s.outcome}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12" data-animate>
+        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-colors duration-200">
+          <span>Discutir meu projeto</span>
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CASE ═══════════════════════════════════════════════════════ -->
+  <section class="bg-off-white py-24 lg:py-32 border-t border-secondary/8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center gap-3 mb-16" data-animate>
+        <span class="text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">03 / Resultado</span>
+        <span class="h-px flex-1 bg-secondary/12 max-w-[80px]" aria-hidden="true"></span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-16 lg:gap-24 items-start">
+        <div data-animate data-animate-delay="1">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary/45 mb-4">
+            Setor · {niche.caseStudy.sector}
+          </p>
+          <h2 class="text-[clamp(1.7rem,2.8vw,2.75rem)] font-bold text-secondary leading-[1.12] tracking-tight mb-10">
+            {niche.caseStudy.headline}
+          </h2>
+
+          <div class="space-y-7">
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O problema</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">{niche.caseStudy.problem}</p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O que fizemos</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">{niche.caseStudy.what}</p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-2">O resultado</p>
+              <p class="text-secondary/75 text-[0.97rem] leading-relaxed">{niche.caseStudy.result}</p>
+            </div>
+          </div>
+
+          <a href="/contato" class="inline-flex items-center gap-2 mt-12 text-sm font-medium text-primary group">
+            <span class="border-b border-primary/40 pb-px group-hover:border-primary transition-colors">Discutir um projeto similar</span>
+            <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="lg:border-l lg:border-secondary/10 lg:pl-16" data-animate data-animate-delay="2">
+          <p class="text-[10px] font-semibold text-secondary/50 uppercase tracking-[0.2em] mb-6">Impacto medido</p>
+          <div class="case-bars">
+            {niche.caseStudy.metrics.map((m) => (
+              <div class={`case-bar ${m.highlight ? 'case-bar-hl' : ''}`}>
+                <div class="case-bar-top">
+                  <span class="case-bar-label">{m.label}</span>
+                  <span class="case-bar-value">{m.value}</span>
+                </div>
+                <div class="case-bar-track" aria-hidden="true">
+                  <div class="case-bar-fill" style={`width:${m.bar}%`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY COGNUO ════════════════════════════════════════════════ -->
+  <section class="bg-secondary py-24 lg:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 hero-grid-dots opacity-30" aria-hidden="true"></div>
+    <div
+      class="absolute -right-20 -bottom-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+      style="background: radial-gradient(circle, rgba(0,53,176,0.2) 0%, transparent 65%); filter: blur(60px);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-10 text-center" data-animate>
+      <span class="text-[10px] font-semibold tracking-[0.22em] uppercase mb-6 inline-block" style="color: #A3BAEA;">Por que a Cognuo</span>
+      <h2 class="text-[clamp(1.95rem,3.6vw,3.1rem)] font-bold text-off-white leading-[1.1] tracking-tight mb-5">
+        Vamos entender o seu problema antes de falar em solução
+      </h2>
+      <p class="text-off-white/75 text-[1.02rem] mb-10 leading-relaxed max-w-2xl mx-auto">
+        Em 45 minutos, você conta como sua operação funciona hoje e onde está travando.
+        A gente ouve, faz as perguntas certas e diz honestamente o que dá para resolver.
+        Sem compromisso, sem pressão de venda.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+        <a href="/contato" class="hero-cta-primary">
+          <span>Agendar diagnóstico</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="/" class="hero-cta-secondary">Ver como trabalhamos</a>
+      </div>
+      <p class="text-[11px] uppercase tracking-[0.15em] text-off-white/55 font-medium">
+        Gratuito · Sem compromisso · Resposta em 24h
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) navbar?.classList.add('scrolled');
+    else navbar?.classList.remove('scrolled');
+  }, { passive: true });
+</script>
