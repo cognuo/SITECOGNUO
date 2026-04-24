@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd cognuo-webpage && npm install && npm run build",
+  "outputDirectory": "cognuo-webpage/.vercel/output",
+  "build": {
+    "env": {
+      "NODE_VERSION": "20"
+    }
+  }
+}
