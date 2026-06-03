@@ -1,0 +1,11 @@
+# Lefthook — git hooks.
+# Pre-commit speed/quality gate: builds the site and runs Lighthouse.
+# The commit is rejected unless every Lighthouse category scores >= 95.
+#
+# Only runs when front-end files are staged (skips docs-only commits).
+pre-commit:
+  commands:
+    lighthouse:
+      glob: "{src/**/*,public/**/*,astro.config.*,tailwind.config.*,package.json}"
+      run: npm run lighthouse
+      fail_text: "Lighthouse gate failed — every category must score >= 95. See the report above."

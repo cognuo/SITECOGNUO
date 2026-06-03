@@ -138,7 +138,7 @@ const faqs = [
   <Navbar />
 
   <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
-  <section class="hero-root relative min-h-[90vh] lg:min-h-[820px] overflow-hidden flex flex-col" style="background:#0C0B10;">
+  <section class="hero-root relative min-h-[90vh] lg:min-h-[820px] overflow-hidden flex flex-col" style="background: radial-gradient(125% 120% at 78% -10%, #12409e 0%, #0a1c47 40%, #0a0c14 73%, #080808 100%);">
     <div class="absolute inset-0 hero-grid-cols" aria-hidden="true"></div>
     <div class="absolute inset-0 hero-grid-dots opacity-60" aria-hidden="true"></div>
     <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
@@ -152,13 +152,13 @@ const faqs = [
 
           <div class="anim-hero anim-d1 inline-flex items-center gap-2.5 mb-10">
             <span class="hidden lg:inline-block w-6 h-px bg-off-white/35" aria-hidden="true"></span>
-            <span class="text-[10.5px] font-medium tracking-[0.2em] uppercase text-off-white/55">
+            <span class="text-[10.5px] font-semibold tracking-[0.2em] uppercase text-off-white/75">
               Para empresas que cresceram além da planilha
             </span>
           </div>
 
-          <h1 class="anim-hero anim-d2 text-[clamp(2rem,4.2vw,3.4rem)] font-bold text-off-white leading-[1.1] tracking-[-0.02em] mb-6 max-w-[22ch]">
-            Sua operação merece funcionar sem depender de você.
+          <h1 class="anim-hero anim-d2 text-[clamp(2.1rem,4.6vw,3.6rem)] font-extrabold text-off-white leading-[1.08] tracking-[-0.025em] mb-6 max-w-[22ch]">
+            Sua operação merece funcionar sem <span class="hl-grad">depender de você</span>.
           </h1>
 
           <p class="anim-hero anim-d3 text-[1.02rem] sm:text-[1.08rem] text-off-white/70 max-w-[540px] lg:max-w-[500px] mx-auto lg:mx-0 leading-[1.7] mb-10">
@@ -253,10 +253,10 @@ const faqs = [
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
         {stats.map((s, i) => (
           <div class="relative" data-animate data-animate-delay={String(Math.min(i, 3))}>
-            <p class="text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold text-off-white leading-none tracking-tight mb-2">
+            <p class="hl-grad text-[clamp(2.4rem,4vw,3.4rem)] font-extrabold leading-none tracking-[-0.02em] mb-2">
               {s.value}
             </p>
-            <p class="text-[11px] uppercase tracking-[0.14em] text-off-white/55 leading-relaxed">
+            <p class="text-[11px] uppercase tracking-[0.14em] text-off-white/70 leading-relaxed">
               {s.label}
             </p>
           </div>
@@ -300,7 +300,7 @@ const faqs = [
         </div>
         <p class="text-[clamp(1.6rem,3.1vw,2.6rem)] font-bold text-secondary leading-[1.18] tracking-tight">
           Você não tem um problema de tecnologia.<br />
-          Tem um processo que cresceu além do <span class="underline decoration-primary decoration-[3px] underline-offset-[6px]">improviso</span>.
+          Tem um processo que cresceu além do <span class="hl">improviso</span>.
         </p>
         <p class="mt-6 text-[1.02rem] text-secondary/65 max-w-xl leading-relaxed">
           Em algum momento, toda empresa que cresce chega no limite do que dá
@@ -459,7 +459,7 @@ const faqs = [
       </div>
 
       <div class="mt-14 flex flex-wrap items-center gap-5" data-animate>
-        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-colors duration-200">
+        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-[#0040d4] transition-colors duration-200" style="box-shadow: 0 14px 30px -12px rgba(0,53,176,0.5);">
           <span>Discutir meu projeto</span>
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -580,7 +580,7 @@ const faqs = [
         {niches.map((niche, i) => (
           <a
             href={`/${niche.slug}`}
-            class="group block p-6 bg-secondary/[0.03] border border-secondary/10 hover:border-primary/40 hover:bg-primary/[0.03] transition-all duration-250"
+            class="group block p-6 rounded-2xl bg-secondary/[0.03] border border-secondary/10 hover:border-primary/40 hover:bg-primary/[0.03] hover:-translate-y-1 transition-all duration-250"
             data-animate
             data-animate-delay={String(Math.min(i, 3))}
           >
@@ -698,7 +698,7 @@ const faqs = [
       <div data-animate>
         <span class="text-[10px] font-semibold tracking-[0.22em] uppercase mb-6 inline-block" style="color: #A3BAEA;">Próximo passo</span>
         <h2 class="text-[clamp(1.95rem,3.6vw,3.1rem)] font-bold text-off-white leading-[1.1] tracking-tight mb-5">
-          Vamos entender o seu problema antes de falar em solução
+          Vamos entender o seu problema antes de <span class="hl-grad">falar em solução</span>
         </h2>
         <p class="text-off-white/75 text-[1.02rem] mb-10 leading-relaxed max-w-lg">
           Em 45 minutos, você conta como sua operação funciona hoje e onde
@@ -795,7 +795,7 @@ const faqs = [
         09 / Vamos começar
       </span>
       <h2 class="text-[clamp(2.1rem,4.5vw,4rem)] font-extrabold text-secondary leading-[1.05] tracking-[-0.03em] mb-6 max-w-[20ch] mx-auto">
-        Pronto para parar de apagar incêndio?
+        Pronto para parar de <span class="hl">apagar incêndio</span>?
       </h2>
       <p class="text-secondary/65 text-[1.05rem] mb-10 max-w-md mx-auto leading-relaxed">
         Comece com uma conversa gratuita. Em 45 minutos você sai sabendo exatamente o que pode mudar na sua operação.
@@ -803,8 +803,8 @@ const faqs = [
       <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
         <a
           href="/contato"
-          class="inline-flex items-center gap-2 px-7 py-4 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-all duration-300"
-          style="box-shadow: 0 20px 42px -12px rgba(0,53,176,0.4);"
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white text-sm font-bold hover:bg-[#0040d4] transition-all duration-300"
+          style="box-shadow: 0 20px 42px -12px rgba(0,53,176,0.5);"
         >
           <span>Agendar diagnóstico gratuito</span>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

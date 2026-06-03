@@ -5,11 +5,15 @@ export default {
     extend: {
       colors: {
         primary: '#0035B0',
-        secondary: '#17161B',
+        'primary-deep': '#0A2E7A',
+        secondary: '#101010',
+        navy: '#1E1D30',
+        blush: '#F4F7FF',
         'off-white': '#FAFAFA',
       },
       fontFamily: {
-        sans: ['Instrument Sans Variable', 'Instrument Sans Fallback', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Red Hat Display', 'Instrument Sans Fallback', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Red Hat Display', 'Instrument Sans Fallback', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },

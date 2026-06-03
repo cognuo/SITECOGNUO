@@ -20,7 +20,7 @@ const canonical = `https://cognuo.com.br/${niche.slug}`;
   <Navbar />
 
   <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
-  <section class="hero-root relative min-h-[72vh] overflow-hidden flex flex-col" style="background:#0C0B10;">
+  <section class="hero-root relative min-h-[72vh] overflow-hidden flex flex-col" style="background: radial-gradient(125% 120% at 78% -10%, #12409e 0%, #0a1c47 40%, #0a0c14 73%, #080808 100%);">
     <div class="absolute inset-0 hero-grid-cols" aria-hidden="true"></div>
     <div class="absolute inset-0 hero-grid-dots opacity-60" aria-hidden="true"></div>
     <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
@@ -32,13 +32,13 @@ const canonical = `https://cognuo.com.br/${niche.slug}`;
 
         <div class="anim-hero anim-d1 inline-flex items-center gap-2.5 mb-10">
           <span class="w-6 h-px bg-off-white/35" aria-hidden="true"></span>
-          <span class="text-[10.5px] font-medium tracking-[0.2em] uppercase text-off-white/55">
+          <span class="text-[10.5px] font-semibold tracking-[0.2em] uppercase text-off-white/75">
             {niche.eyebrow}
           </span>
           <span class="w-6 h-px bg-off-white/35" aria-hidden="true"></span>
         </div>
 
-        <h1 class="anim-hero anim-d2 text-[clamp(2rem,4.5vw,3.6rem)] font-bold text-off-white leading-[1.1] tracking-[-0.02em] mb-6 max-w-[24ch] mx-auto">
+        <h1 class="anim-hero anim-d2 text-[clamp(2.1rem,4.6vw,3.6rem)] font-extrabold text-off-white leading-[1.08] tracking-[-0.025em] mb-6 max-w-[24ch] mx-auto">
           {niche.heroHeadline}
         </h1>
 
@@ -114,7 +114,7 @@ const canonical = `https://cognuo.com.br/${niche.slug}`;
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {niche.solutions.map((s, i) => (
           <div
-            class="bg-off-white/5 border border-off-white/10 p-6 flex flex-col"
+            class="bg-off-white/5 border border-off-white/10 rounded-2xl p-7 flex flex-col"
             data-animate
             data-animate-delay={String(Math.min(i, 3))}
           >
@@ -131,7 +131,7 @@ const canonical = `https://cognuo.com.br/${niche.slug}`;
       </div>
 
       <div class="mt-12" data-animate>
-        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-off-white text-sm font-medium hover:bg-[#002d96] transition-colors duration-200">
+        <a href="/contato" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-[#0040d4] transition-colors duration-200" style="box-shadow: 0 14px 30px -12px rgba(0,53,176,0.5);">
           <span>Discutir meu projeto</span>
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M3 7h8m0 0L7 3m4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -227,7 +227,7 @@ const canonical = `https://cognuo.com.br/${niche.slug}`;
         </a>
         <a href="/" class="hero-cta-secondary">Ver como trabalhamos</a>
       </div>
-      <p class="text-[11px] uppercase tracking-[0.15em] text-off-white/55 font-medium">
+      <p class="text-[11px] uppercase tracking-[0.15em] text-off-white/70 font-medium">
         Gratuito · Sem compromisso · Resposta em 24h
       </p>
     </div>
